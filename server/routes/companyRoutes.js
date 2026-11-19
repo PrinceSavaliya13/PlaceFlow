@@ -1,0 +1,10 @@
+import { Router } from "express";
+import * as c from "../controllers/companyController.js";
+import { protect, authorize } from "../middleware/auth.js";
+const r = Router();
+r.use(protect, authorize("company"));
+r.get("/dashboard", c.dashboard);
+r.route("/profile").get(c.profile).put(c.updateProfile);
+r.get("/jobs/:jobId/applicants", c.applicants);
+r.patch("/applications/:id/status", c.setStatus);
+export default r;
